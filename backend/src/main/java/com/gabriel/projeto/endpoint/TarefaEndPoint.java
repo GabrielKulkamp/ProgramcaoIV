@@ -2,13 +2,10 @@ package com.gabriel.projeto.endpoint;
 
 import com.gabriel.projeto.domain.Tarefa;
 import com.gabriel.projeto.service.TarefaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 
@@ -28,9 +25,10 @@ public class TarefaEndPoint {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Void> save (@Valid @RequestBody  Tarefa tarefa){
-        tarefa = tarefaService.save(tarefa);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(tarefa.getId()).toUri();
-        return  ResponseEntity.created(uri).build();
+    public ResponseEntity<Void> save (@RequestBody  Tarefa tarefa){
+        tarefaService.save(tarefa);
+        return  ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+
 }

@@ -23,7 +23,5 @@ public class TarefaService {
 
     public Tarefa save(Tarefa tarefa){
         return tarefaRepository.save(tarefa);
-
-
     }
 }

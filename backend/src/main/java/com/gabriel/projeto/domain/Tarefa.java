@@ -1,21 +1,16 @@
 package com.gabriel.projeto.domain;
 
-import com.gabriel.projeto.enuns.Situacao;
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@AllArgsConstructor
 @Entity
 @Getter
 public class Tarefa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @Setter
@@ -23,13 +18,11 @@ public class Tarefa implements Serializable {
     private Long id;
 
     @Setter
-    @NotNull
-    private String assunto;
+    private String titulo;
 
     @Setter
-    private Situacao situacao;
+    private String descricao;
 
-    public Tarefa() {
-
-    }
+    @Setter
+    private boolean isFinalizado;
 }
