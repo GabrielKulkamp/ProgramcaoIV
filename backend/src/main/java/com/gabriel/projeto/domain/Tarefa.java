@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -18,11 +19,9 @@ public class Tarefa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tarefa")
-    private Long id;
+    private Integer id;
     
     private String titulo;
-    
-    private String descricao;
     
     private boolean isFinalizado;
     
@@ -31,11 +30,11 @@ public class Tarefa implements Serializable {
     @JoinColumn(name = "id_projeto")
     private Projeto projeto;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -45,14 +44,6 @@ public class Tarefa implements Serializable {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public boolean isFinalizado() {

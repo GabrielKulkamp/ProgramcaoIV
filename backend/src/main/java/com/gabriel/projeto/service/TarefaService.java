@@ -17,40 +17,47 @@ public class TarefaService {
     public TarefaService(TarefaRepository tarefaRepository) {
         this.tarefaRepository = tarefaRepository;
     }
+    
+    public List<Tarefa> findAllSemProjeto(){
+    	List<Tarefa> lista = tarefaRepository.findByProjeto(null);
+        return lista;
+    }
 
     public List<Tarefa> findAll() {
-        return tarefaRepository.findAll();
+    	List<Tarefa> lista = tarefaRepository.findAll();
+    	if(lista.isEmpty()) {
+    		throw new EntityNotFoundException("Nenhuma tarefa encontrada");
+    	}
+        return lista;
     }
 
     public Tarefa save(Tarefa tarefa){
         return tarefaRepository.save(tarefa);
     }
     
-    public Tarefa findById(Long id) {
+    public Tarefa findById(Integer id) {
     	return tarefaRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Tarefa com id:" + id + " não existe!"));
     }
     
-    public Tarefa alteraSituacaoTarefa(Tarefa tarefa) {
-    	Tarefa tarefaBanco = this.findById(tarefa.getId());
-    	tarefaBanco.setFinalizado(tarefa.isFinalizado());
-    	return tarefaRepository.save(tarefaBanco);
+    public Tarefa concluirTarefa(Integer id) {	
+    	Tarefa tarefa = this.findById(id);
+    	tarefa.setFinalizado(true);
+    	return tarefaRepository.save(tarefa);
+    }
+    
+    public Tarefa pendenteTarefa(Integer id) {
+    	Tarefa tarefa = this.findById(id);
+    	tarefa.setFinalizado(false);
+    	return tarefaRepository.save(tarefa);
     }
     
     public Tarefa updateTarefa(Tarefa tarefa) {
     	Tarefa tarefaUpdate = this.findById(tarefa.getId());
-    	
-    	if(tarefa.getTitulo() != null && !tarefa.getTitulo().equals("")) {
-    		tarefaUpdate.setTitulo(tarefa.getTitulo());
-    	}
-    	
-    	if(tarefa.getDescricao() != null && !tarefa.getDescricao().equals("")) {
-    		tarefaUpdate.setDescricao(tarefa.getDescricao());
-    	}
-    	
+    	tarefaUpdate.setTitulo(tarefa.getTitulo());
     	return tarefaRepository.save(tarefaUpdate);
     }
     
-    public void deleteTarefa(Long id){
+    public void deleteTarefa(Integer id){
         tarefaRepository.deleteById(id);
     }
 }

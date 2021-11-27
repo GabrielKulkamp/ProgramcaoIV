@@ -26,7 +26,7 @@ public class ProjetoService {
         return projetoRepository.save(projeto);
     }
     
-    public Projeto findById(Long id) {
+    public Projeto findById(Integer id) {
     	return projetoRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Projeto com id:" + id + " não existe!"));
     }
     
@@ -40,7 +40,7 @@ public class ProjetoService {
     	return projetoRepository.save(projetoUpdate);
     }
     
-    public void deleteProjeto(Long id){
+    public void deleteProjeto(Integer id){
         projetoRepository.deleteById(id);
     }
 }

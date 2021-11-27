@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.gabriel.projeto.service.ProjetoService;
 
 @RestController
 @RequestMapping(value = "projeto")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProjetoEndPoint {
 
     private final ProjetoService projetoService;
@@ -32,8 +34,8 @@ public class ProjetoEndPoint {
         return ResponseEntity.ok().body(projetoService.findAll());
     }
     
-    @GetMapping(value="/id")
-    public ResponseEntity<Projeto> findById(@PathVariable Long id) {
+    @GetMapping(value="/{id}")
+    public ResponseEntity<Projeto> findById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(projetoService.findById(id));
     }
 
@@ -43,13 +45,13 @@ public class ProjetoEndPoint {
         return  ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
-    @PutMapping
+    @PutMapping(value="/update")
     public ResponseEntity<Projeto> updateProjeto(@RequestBody Projeto projeto){
     	return ResponseEntity.ok().body(projetoService.updateProjeto(projeto));
     }
     
-    @DeleteMapping(value="/id")
-    public ResponseEntity<Projeto> deleteProjeto(@RequestBody Long id){
+    @DeleteMapping(value="/remove/{id}")
+    public ResponseEntity<Projeto> deleteProjeto(@PathVariable Integer id){
     	projetoService.deleteProjeto(id);
     	return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

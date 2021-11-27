@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Projeto implements Serializable {
 
@@ -16,18 +18,18 @@ public class Projeto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_projeto")
-    private Long id;
+    private Integer id;
 
     private String nome;
     
-    @OneToMany
+    @OneToMany(mappedBy = "projeto")
     private List<Tarefa> tarefas;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

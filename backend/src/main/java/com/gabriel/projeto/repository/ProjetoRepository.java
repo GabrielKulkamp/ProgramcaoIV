@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.gabriel.projeto.domain.Projeto;
 
 @Repository
-public interface ProjetoRepository extends JpaRepository<Projeto ,Long> {
+public interface ProjetoRepository extends JpaRepository<Projeto ,Integer> {
 }
